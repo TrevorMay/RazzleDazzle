@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 '''Rules of the game: 
 You start by paying a dollar to roll 8 dice and add up your score
@@ -32,36 +33,40 @@ roll_history = []
 prize = 10
 fee = 1
 spent = 0
+all_history = []
 
-for x in range(100):
-    roll = 0
-    for i in range(8):
-        dice = np.random.randint(1, 7)
-        roll += dice
+for z in range(10):
+    roll_history = []
+    for x in range(100):
+        roll = 0
+        for i in range(8):
+            dice = np.random.randint(1, 7)
+            roll += dice
 
-    roll_history.append(roll)
-    spent = spent + fee
+        roll_history.append(roll)
+        spent = spent + fee
 
-    if roll in hundred:
-        score += 100
-    elif roll in fifty:
-        score += 50
-    elif roll in thirty:
-        score += 30
-    elif roll in twenty:
-        score += 20
-    elif roll in fifteen:
-        score += 15
-    elif roll in five:
-        score += 5
-    elif roll == 16:
-        score += 10
-    elif roll in doublePrize:
-        prize = prize * 2
-    elif roll in nothing:
-        continue
-    elif roll == 29:
-        fee = fee * 2
+        if roll in hundred:
+            score += 100
+        elif roll in fifty:
+            score += 50
+        elif roll in thirty:
+            score += 30
+        elif roll in twenty:
+            score += 20
+        elif roll in fifteen:
+            score += 15
+        elif roll in five:
+            score += 5
+        elif roll == 16:
+            score += 10
+        elif roll in doublePrize:
+            prize = prize * 2
+        elif roll in nothing:
+            continue
+        elif roll == 29:
+            fee = fee * 2
+    all_history.append(roll_history)
 
 print('score:' + str(score))
 print('prize:' + str(prize))
@@ -69,3 +74,9 @@ print('fee:' + str(fee))
 print('spent: ' + str(spent))
 print('rollHistory:' + str(roll_history))
 print('num of rounds:' + str(len(roll_history)))
+print(all_history)
+
+np_ah = np.array(all_history)
+np_ah_t = np.transpose(np_ah)
+plt.plot(np_ah_t)
+plt.show()
