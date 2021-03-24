@@ -66,7 +66,7 @@ for z in range(10):
             continue
         elif roll == 29:
             fee = fee * 2
-    all_history.append(roll_history)
+    all_history.extend(roll_history)
 
 print('score:' + str(score))
 print('prize:' + str(prize))
@@ -76,7 +76,11 @@ print('rollHistory:' + str(roll_history))
 print('num of rounds:' + str(len(roll_history)))
 print(all_history)
 
-np_ah = np.array(all_history)
-np_ah_t = np.transpose(np_ah)
-plt.plot(np_ah_t)
+# np_ah = np.array(all_history)
+# np_ah_t = np.transpose(np_ah)
+# plt.plot(np_ah_t)
+
+# Bin width found using Freedman-Diaconis
+plt.hist(all_history, density=True, bins=26)
+plt.xticks(range(8, 49, 1))
 plt.show()
